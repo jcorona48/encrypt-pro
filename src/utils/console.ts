@@ -6,8 +6,8 @@ export const rl = readline.createInterface({
     output: process.stdout
 });
 
-export const askQuestion = (query: string) => {
-    return new Promise(resolve => rl.question(query, resolve)) as Promise<string>;
+export const askQuestion = async (query: string) => {
+    return new Promise(resolve => rl.question(query, resolve)) as Promise<string>
 };
 
 export const askForMultilineInput = async () => {

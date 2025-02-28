@@ -16,6 +16,7 @@ const main = async () => {
 
         clearConsole();
         await action();
+        await askQuestion("Press Enter to continue...");
     }
 };
 

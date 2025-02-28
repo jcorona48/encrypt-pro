@@ -3,18 +3,30 @@ import { customDecrypt, customEncrypt } from "@/utils/crypto";
 import { loadEncryptedData, saveEncryptedData } from "@/utils/storage";
 
 export const encryptText = async () => {
-    const name = await askQuestion("Enter a name for the phrase: ");
-    const phrase = await askForMultilineInput();
-    const key = await askQuestion("Enter a key of at least 8 characters: ");
-
-    if (key.length < 8) {
-        console.log("The key must be at least 8 characters long.");
-        return;
+    const state = {
+        name: "",
+        key: "",
+        phrase: "",
     }
 
-    const encryptedText = customEncrypt(phrase, key);
+    state.name = await askQuestion("Enter a name for the phrase: ");
+    while (true) {
+        clearConsole();
+        console.log("Selected name:", state.name);
+        state.key = await askQuestion("Enter a key of at least 8 characters: ");
+        if (state.key.length >= 8) break;
+        console.log("The key must be at least 8 characters long.");
+        await askQuestion("Press Enter to continue...");
+    }
+
+    clearConsole();
+    console.log("Selected name:", state.name);
+    console.log("Selected key:", state.key);
+    state.phrase = await askForMultilineInput();
+
+    const encryptedText = customEncrypt(state.phrase, state.key);
     const encryptedData = loadEncryptedData();
-    encryptedData.push({ name, text: encryptedText, date: Date.now().toString() });
+    encryptedData.push({ name: state.name, text: encryptedText, date: Date.now().toString() });
     saveEncryptedData(encryptedData);
 
     console.log("Text encrypted and saved successfully.");
@@ -45,8 +57,7 @@ export const decryptText = async () => {
     const key = await askQuestion("Enter the key to decrypt: ");
     const decryptedText = customDecrypt(encryptedData[index].text, key);
     clearConsole();
-    console.log("Decrypted text:", decryptedText);
-    await askQuestion("Press Enter to continue...");
+    console.log("Decrypted text: \n\n", decryptedText);
 };
 
 export const listEncryptedTexts = async () => {
@@ -62,5 +73,4 @@ export const listEncryptedTexts = async () => {
     });
 
     console.log("End of list.");
-    await askQuestion("Press Enter to continue...");
 };
