@@ -1,7 +1,8 @@
-import { encryptText, decryptText, listEncryptedTexts } from "@/services";
+import { decryptText, encryptText, listEncryptedTexts } from "@/services";
+import { type Option } from "@/types";
 import { rl } from "@/utils/console";
 
-export const OPTIONS = [
+export const OPTIONS: Option[] = [
     {
         text: "Encrypt text",
         value: 1,
@@ -21,7 +22,7 @@ export const OPTIONS = [
         text: "Exit",
         value: 4,
         action: () => {
-            console.log("Exiting...");
+            console.log("Exiting... Goodbye! 👋");
             rl.close();
             process.exit(0);
         }
