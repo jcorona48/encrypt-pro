@@ -78,8 +78,7 @@ export const decryptText = async () => {
         phrase: encryptedData[index].name,
     })
     const key = await askQuestion("Enter the key to decrypt: ");
-    if (!encryptedData[index].strategy) return console.log("Invalid strategy, cannot decrypt text.");
-    const decryptedText = ACTIONS[encryptedData[index].strategy].decrypt(encryptedData[index].text, key);
+    const decryptedText = ACTIONS[encryptedData[index].strategy || STRATEGIES.SHIFT].decrypt(encryptedData[index].text, key);
     if(decryptedText === "") return ;
     clearConsole();
     console.log("Decrypted text: \n\n", decryptedText);
