@@ -1,5 +1,5 @@
 {
-  "name": "encrypt-pro",
+  "name": "encryptjc",
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
