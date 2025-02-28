@@ -7,11 +7,7 @@ export const loadEncryptedData = () => {
     if (!fs.existsSync(FILE_PATH)) return [];
     const data = JSON.parse(fs.readFileSync(FILE_PATH, "utf-8")) as EncryptedData[];
     if (!Array.isArray(data)) return [];
-
-    return data.map(item => ({
-        ...item,
-        date: new Date(parseInt(item.date)).toLocaleString(),
-    }));
+    return data;
 };
 
 export const saveEncryptedData = (data: EncryptedData[]) => {

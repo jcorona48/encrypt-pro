@@ -58,7 +58,7 @@ export const printTableData = (encryptedData: EncryptedData[]) => {
     const tableData = Object.fromEntries(
         encryptedData.map((item, index) => [
             `#${index + 1}`,
-            { Name: item.name, Strategy: item.strategy, Date: item.date, }
+            { Name: item.name, Strategy: item.strategy, Date: new Date(parseInt(item.date)).toLocaleString(), }
         ])
     )
     console.table(tableData);
