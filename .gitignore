@@ -175,3 +175,5 @@ dist
 .DS_Store
 
 encrypted_data.json
+
+storage/
